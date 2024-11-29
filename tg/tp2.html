@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Unidades de Medida</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            background-color: #007bff;
+            margin: 0;
+            padding: 20px;
+            font-size: 2.5em;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: #fafafa;
+            transition: background-color 0.3s ease;
+        }
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #eaf4ff;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        h3 {
+            font-size: 1.3em;
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+        .resultado {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Conversor de Unidades de Medida</h1>
+
+    <div class="container">
+        <h2>Convertir Longitud</h2>
+        
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" placeholder="Introduce la cantidad a convertir">
+
+        <label for="unidad-origen">Unidad de origen:</label>
+        <select id="unidad-origen">
+            <option value="metros">Metros</option>
+            <option value="centimetros">Centímetros</option>
+            <option value="kilometros">Kilómetros</option>
+        </select>
+
+        <label for="unidad-destino">Unidad de destino:</label>
+        <select id="unidad-destino">
+            <option value="metros">Metros</option>
+            <option value="centimetros">Centímetros</option>
+            <option value="kilometros">Kilómetros</option>
+        </select>
+
+        <button onclick="convertirLongitud()">Convertir</button>
+
+        <h3>Resultado: <span id="resultado" class="resultado"></span></h3>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 | <a href="#">Terminos y condiciones</a> | <a href="#">Acerca de</a></p>
+    </div>
+
+    <script>
+        function convertirLongitud() {
+            const cantidad = parseFloat(document.getElementById("cantidad").value);
+            const unidadOrigen = document.getElementById("unidad-origen").value;
+            const unidadDestino = document.getElementById("unidad-destino").value;
+            let resultado;
+
+            if (isNaN(cantidad)) {
+                alert("Por favor, ingresa un número válido.");
+                return;
+            }
+
+            // Conversiones de longitud
+            const conversiones = {
+                metros: { centimetros: 100, kilometros: 0.001 },
+                centimetros: { metros: 0.01, kilometros: 0.00001 },
+                kilometros: { metros: 1000, centimetros: 100000 },
+            };
+
+            if (unidadOrigen === unidadDestino) {
+                resultado = cantidad;
+            } else {
+                resultado = cantidad * conversiones[unidadOrigen][unidadDestino];
+            }
+
+            document.getElementById("resultado").innerText = resultado + " " + unidadDestino;
+        }
+    </script>
+
+</body>
+</html>
